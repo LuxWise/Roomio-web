@@ -31,15 +31,14 @@ const colorClasses: Record<colors, string> = {
 
 const Typography = ({
   variant = "body",
-  color = "black",
+  color,
   className = "",
   children,
 }: TypographyProps) => {
   const Tag = variant.startsWith("h") ? variant : "span";
+  const colorClass = color ? colorClasses[color] : "";
   return (
-    <Tag
-      className={`${variantClasses[variant]} ${colorClasses[color]} ${className}`}
-    >
+    <Tag className={`${variantClasses[variant]} ${colorClass} ${className}`}>
       {children}
     </Tag>
   );
