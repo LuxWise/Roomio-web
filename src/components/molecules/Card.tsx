@@ -60,7 +60,7 @@ const Card = ({
           variant="h6"
           className={`${textColor ? textColor : `text-gray-700`} `}
         >
-          $ {price} por noche
+          {price}
         </Typography>
       </div>
     </div>

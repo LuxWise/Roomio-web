@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import SearchBar from "@/components/molecules/SearchBar";
 import useScroll from "@/hooks/useScroll";
+import { SyncLoader } from "react-spinners";
+import { useTranslations } from "next-intl";
 
 interface Rooms {
   id: number;
@@ -19,6 +21,7 @@ export default function Home() {
   const [rooms, setRooms] = useState<Array<Rooms>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const scroll = useScroll(state => state.scroll);
+  const t = useTranslations("Home");
 
   useEffect(() => {
     setLoading(prev => !prev);
@@ -33,6 +36,7 @@ export default function Home() {
   const isLight = useTheme(state => state.theme);
   const bgMain = isLight ? "bg-white" : "bg-[#181c25]";
   const textColor = isLight ? "text-black" : "text-white";
+  const loaderColor = isLight ? "#587aff" : "#F1F1F1";
 
   return (
     <div
@@ -56,11 +60,13 @@ export default function Home() {
             <SearchBar />
           </section>
 
-          <section className="grid grid-cols-4 grid-rows-2 gap-x-10 gap-y-8 py-20 px-40">
-            {loading ? (
-              <div>cargando</div>
-            ) : (
-              rooms.map(room => (
+          {loading ? (
+            <div className="mt-28">
+              <SyncLoader color={loaderColor} />
+            </div>
+          ) : (
+            <section className="grid grid-cols-4 grid-rows-2 gap-x-10 gap-y-8 py-20 px-40">
+              {rooms.map(room => (
                 <Card
                   key={room.id}
                   name={room.hotelId.name}
@@ -68,13 +74,13 @@ export default function Home() {
                     "https://roomio.blob.core.windows.net/roomio-hotels/57d01297-ec68-4f71-b042-d883a6b4f734-hotel fontana (3).jpg"
                   }
                   ubication={`${room.hotelId.city}, ${room.hotelId.country}`}
-                  price={room.price}
+                  price={`$ ${room.price} ${t("price")}`}
                   textColor={textColor}
                   shadow={isLight ? "blue" : "white"}
                 />
-              ))
-            )}
-          </section>
+              ))}
+            </section>
+          )}
         </main>
       </LayoutHome>
     </div>
