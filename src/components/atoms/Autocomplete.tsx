@@ -19,13 +19,13 @@ const Autocomplete = ({
 }: AutocompleteProps) => {
   return (
     <div
-      className={`absolute top-25 left-0 z-30 bg-white rounded-xl shadow-lg p-4 w-72 ${
+      className={`absolute top-17 left-0 z-30 bg-white rounded-xl shadow-lg p-4 w-72 ${
         className || ""
       }`}
     >
       <input
         type="text"
-        className="w-full border p-2 mb-2 rounded-2xl"
+        className="w-full border px-2 py-1 mb-1  rounded-xl"
         placeholder={placeholder}
         value={value}
         onChange={e => onChange(e.target.value)}
@@ -37,7 +37,7 @@ const Autocomplete = ({
           .map(d => (
             <li
               key={d}
-              className="cursor-pointer hover:bg-blue-100 p-2 rounded"
+              className="cursor-pointer hover:bg-blue-100 p-2 rounded text-sm"
               onClick={() => onSelect(d)}
             >
               {d}

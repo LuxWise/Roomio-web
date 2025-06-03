@@ -1,13 +1,16 @@
 import React from "react";
+import Typography from "./Typography";
 
 type bgColors = "blue" | "red" | "green" | "white";
 type colors = "blue" | "red" | "green" | "white" | "black";
+type rounded = "sm" | "md" | "lg" | "xl";
 
 interface buttonProps {
   bgColor: bgColors;
   color: colors;
   text: string;
   className?: string;
+  rounded: rounded;
   onClick?: () => void;
 }
 
@@ -26,13 +29,27 @@ const colors: Record<colors, string> = {
   black: "text-black",
 };
 
-const Button = ({ bgColor, color, text, className, onClick }: buttonProps) => {
+const roundeds: Record<rounded, string> = {
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  xl: "rounded-xl",
+};
+
+const Button = ({
+  bgColor,
+  color,
+  text,
+  className,
+  rounded,
+  onClick,
+}: buttonProps) => {
   return (
     <button
-      className={`${bgColors[bgColor]} ${colors[color]} ${className} min-w-12 p-2 rounded-lg  transition-all duration-300 cursor-pointer`}
+      className={`${bgColors[bgColor]} ${colors[color]} ${roundeds[rounded]} ${className} min-w-12 px-2 py-1 transition-all duration-300 cursor-pointer`}
       onClick={onClick}
     >
-      {text}
+      <Typography variant="h6">{text}</Typography>
     </button>
   );
 };

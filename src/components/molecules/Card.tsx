@@ -32,24 +32,24 @@ const Card = ({
 }: CardProps) => {
   return (
     <div
-      className={`flex flex-col px-5 py-2  gap-y-5 rounded-xl ${className}}`}
+      className={`flex flex-col px-5 py-2  gap-y-3 rounded-xl ${className}}`}
     >
       <div className="relative cursor-pointer">
         <Image
           src={img}
           alt=""
-          width={450}
-          height={400}
+          width={230}
+          height={0}
           unoptimized
           className={`rounded-2xl hover:shadow-lg hover: transition-all duration-300 ${
             shadow && shadows[shadow]
           }`}
         />
-        <div className="absolute bottom-5 left-4 bg-white px-2 rounded-lg ">
-          <Typography variant="h5">{name}</Typography>
+        <div className="absolute bottom-3 left-4 bg-white px-2 rounded-lg ">
+          <Typography variant="h6">{name}</Typography>
         </div>
       </div>
-      <div className="flex flex-col gap-y-1">
+      <div className="flex flex-col ">
         <Typography
           variant="h5"
           className={`${textColor ? textColor : `text-gray-900`}`}

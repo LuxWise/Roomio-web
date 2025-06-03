@@ -32,7 +32,7 @@ const Input = ({
 }: InputProps) => {
   return (
     <input
-      className={`rounded-lg px-4 py-2 border outline-none focus:ring-2 focus:ring-sky-400 ${bgColors[bgColor]} ${colors[color]} ${className}`}
+      className={`rounded-lg px-2 py-1 border outline-none focus:ring-2 focus:ring-sky-400 ${bgColors[bgColor]} ${colors[color]} ${className}`}
       {...props}
     />
   );

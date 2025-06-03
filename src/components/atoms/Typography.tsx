@@ -10,18 +10,18 @@ interface TypographyProps {
 }
 
 const variantClasses: Record<variants, string> = {
-  h1: "text-5xl font-bold",
-  h2: "text-4xl font-semibold",
-  h3: "text-3xl font-semibold",
-  h4: "text-2xl font-medium",
-  h5: "text-xl font-medium",
-  h6: "text-lg font-medium",
+  h1: "text-3xl font-bold",
+  h2: "text-2xl font-semibold",
+  h3: "text-xl font-semibold",
+  h4: "text-lg font-medium",
+  h5: "text-md font-medium",
+  h6: "text-sm font-medium",
   body: "text-base",
   span: "text-sm text-gray-500",
 };
 
 const colorClasses: Record<colors, string> = {
-  blue: "text-sky-700",
+  blue: "text-[#1d63ed]",
   green: "text-green-700",
   red: "text-red-700",
   white: "text-white",
