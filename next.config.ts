@@ -1,11 +1,19 @@
+// next.config.ts
+import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
+
+const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
-      new URL("https://roomio.blob.core.windows.net/roomio-hotels/**"),
+      {
+        protocol: "https",
+        hostname: "roomio.blob.core.windows.net",
+        pathname: "/roomio-hotels/**",
+      },
     ],
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

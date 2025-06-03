@@ -29,7 +29,7 @@ const colors: Record<colors, string> = {
 const Button = ({ bgColor, color, text, className, onClick }: buttonProps) => {
   return (
     <button
-      className={`${bgColors[bgColor]} ${colors[color]} ${className} min-w-12 p-2 rounded-lg  transition-all duration-300`}
+      className={`${bgColors[bgColor]} ${colors[color]} ${className} min-w-12 p-2 rounded-lg  transition-all duration-300 cursor-pointer`}
       onClick={onClick}
     >
       {text}

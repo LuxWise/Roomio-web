@@ -1,0 +1,22 @@
+{
+  "HomeLayout": {
+    "phrase1": "Un destion para todos",
+    "phrase2": "Una nueva aventura",
+    "phrase3": "Viajar, conocer y disfrutar",
+    "firstLink": "A donde vamos?",
+    "secondLink": "Roomio",
+    "register": "Registrarse",
+    "login": "Iniciar sesion"
+  },
+  "SearchBar": {
+    "destiny": "Destino",
+    "destinySelect": "Seleccionar destino",
+    "arrive": "Llegada",
+    "arriveDate": "Fecha de llegada",
+    "exit": "Salida",
+    "exitDate": "Fecha de salida"
+  },
+  "Home": {
+    "price": "noche"
+  }
+}

@@ -4,9 +4,11 @@ import { ArrowRightToLine, MapIcon } from "lucide-react";
 import useTheme from "@/hooks/useTheme";
 import { RangeCalendar } from "@heroui/calendar";
 import CardSelect from "../atoms/CardSelect";
+import { useRouter } from "next/navigation";
 import { DateValue } from "@react-types/calendar";
+import { useTranslations } from "next-intl";
+import Autocomplete from "../atoms/Autocomplete";
 
-// Tipado para las opciones de selección
 interface SelectOption {
   title: string;
   text: string;
@@ -16,7 +18,12 @@ interface SelectOption {
 const SearchBar = () => {
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
-  const calendarRef = useRef<HTMLDivElement>(null); // 🆕
+  const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+  const [destination, setDestination] = useState("");
+  const calendarRef = useRef<HTMLDivElement>(null);
+  const autocompleteRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const t = useTranslations("SearchBar");
 
   const [selectedRange, setSelectedRange] = useState<{
     start: DateValue | null;
@@ -26,10 +33,18 @@ const SearchBar = () => {
     end: null,
   });
 
+  const destinations = [
+    "Bogotá",
+    "Medellín",
+    "Cali",
+    "Cartagena",
+    "Barranquilla",
+  ];
+
   const isLight = useTheme(state => state.theme);
 
-  const handleCanlendar = () => {
-    setCalendarOpen(prev => !prev);
+  const hangleMap = () => {
+    router.push("/map");
   };
 
   const handleRangeChange = (range: {
@@ -42,20 +57,29 @@ const SearchBar = () => {
     });
   };
 
+  const handleDestinationSelect = (value: string) => {
+    setDestination(value);
+    setAutocompleteOpen(false);
+  };
+
   const selectOptions: SelectOption[] = [
-    { title: "Destino", text: "Seleccionar destino" },
     {
-      title: "Llegada",
+      title: t("destiny"),
+      text: destination || t("destinySelect"),
+      action: () => setAutocompleteOpen(true),
+    },
+    {
+      title: t("arrive"),
       text: selectedRange.start
         ? selectedRange.start.toDate("America/Bogota").toLocaleDateString()
-        : "Fecha de llegada",
+        : t("arriveDate"),
       action: () => setCalendarOpen(true),
     },
     {
-      title: "Salida",
+      title: t("exit"),
       text: selectedRange.end
         ? selectedRange.end.toDate("America/Bogota").toLocaleDateString()
-        : "Fecha de salida",
+        : t("exitDate"),
       action: () => setCalendarOpen(true),
     },
   ];
@@ -65,10 +89,19 @@ const SearchBar = () => {
 
   const selectedAction = (idx: number, action?: () => void) => {
     setSelectedIdx(idx);
+    if (idx === 1) {
+      setCalendarOpen(prev => !prev);
+      setAutocompleteOpen(false);
+      return;
+    }
+    if (idx === 0) {
+      setAutocompleteOpen(prev => !prev);
+      setCalendarOpen(false);
+      return;
+    }
     if (action) action();
   };
 
-  // Cerrar calendario al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -77,16 +110,22 @@ const SearchBar = () => {
       ) {
         setCalendarOpen(false);
       }
+      if (
+        autocompleteRef.current &&
+        !autocompleteRef.current.contains(event.target as Node)
+      ) {
+        setAutocompleteOpen(false);
+      }
     };
 
-    if (calendarOpen) {
+    if (calendarOpen || autocompleteOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [calendarOpen]);
+  }, [calendarOpen, autocompleteOpen]);
 
   return (
     <div className="flex gap-x-6 relative">
@@ -111,7 +150,7 @@ const SearchBar = () => {
           bgColor={isLight ? "white" : "blue"}
           color={isLight ? "black" : "white"}
           shadow="blue"
-          onClick={handleCanlendar}
+          onClick={hangleMap}
         />
         <BoxButton
           icon={ArrowRightToLine}
@@ -124,16 +163,29 @@ const SearchBar = () => {
           <RangeCalendar
             visibleMonths={2}
             className="shadow-lg shadow-sky-500"
+            calendarWidth={350}
             color="primary"
             aria-atomic="true"
             classNames={{
               header: !isLight && "bg-[#587aff] rounded-lg",
               title: isLight ? "text-[#587aff] text-lg" : "text-white text-lg",
-              content: !isLight && "bg-[#1d4aaa]",
+              content: !isLight && "bg-[#4f6ee6]",
               cellButton: !isLight && " text-white ",
               gridHeaderCell: isLight ? "text-[#181c25]" : "text-black",
             }}
             onChange={date => handleRangeChange(date)}
+          />
+        </div>
+      )}
+      {autocompleteOpen && (
+        <div ref={autocompleteRef}>
+          <Autocomplete
+            value={destination}
+            options={destinations}
+            placeholder={t("destinySelect")}
+            onChange={setDestination}
+            onSelect={handleDestinationSelect}
+            className="shadow-lg shadow-sky-500"
           />
         </div>
       )}
