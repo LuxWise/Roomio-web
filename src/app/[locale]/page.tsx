@@ -44,17 +44,17 @@ export default function Home() {
     >
       <LayoutHome>
         <main
-          className={`flex flex-col items-center w-full ${bgMain} transition-colors duration-500 mt-20`}
+          className={`flex flex-col items-center w-full ${bgMain} transition-colors duration-500 mt-14`}
         >
           <section
-            className={`flex flex-col gap-10 justify-center items-center w-full bg-gradient-to-r from-[#dfd3d3] to-[#fef9fb] rounded-b-[10rem] select-none transition-colors duration-500`}
+            className={`flex flex-col gap-10 justify-center items-center w-full bg-gradient-to-r from-[#dfd3d3] to-[#fef9fb] rounded-b-[8rem] select-none transition-colors duration-500`}
           >
-            <Image src={Map} alt="dsa" className="w-5/6 h-52 object-cover" />
+            <Image src={Map} alt="dsa" className="w-5/6 h-44 object-cover" />
           </section>
 
           <section
             className={`${
-              scroll ? "sticky top-[100px]" : "absolute top-64"
+              scroll ? "sticky top-[65px]" : "absolute top-50"
             }   z-20 flex justify-center transition-all duration-200`}
           >
             <SearchBar />
@@ -65,7 +65,7 @@ export default function Home() {
               <SyncLoader color={loaderColor} />
             </div>
           ) : (
-            <section className="grid grid-cols-4 grid-rows-2 gap-x-10 gap-y-8 py-20 px-40">
+            <section className="grid grid-cols-5 grid-rows-2  gap-y-8 py-20 px-22">
               {rooms.map(room => (
                 <Card
                   key={room.id}
@@ -74,7 +74,7 @@ export default function Home() {
                     "https://roomio.blob.core.windows.net/roomio-hotels/57d01297-ec68-4f71-b042-d883a6b4f734-hotel fontana (3).jpg"
                   }
                   ubication={`${room.hotelId.city}, ${room.hotelId.country}`}
-                  price={`$ ${room.price} ${t("price")}`}
+                  price={` $ ${room.price} ${t("price")}`}
                   textColor={textColor}
                   shadow={isLight ? "blue" : "white"}
                 />

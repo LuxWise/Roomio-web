@@ -16,7 +16,7 @@ const MapPage = () => {
           style={{
             width: "100%",
             height: "100%",
-            marginTop: "5rem",
+            marginTop: "3.5rem",
           }}
           mapStyle={
             isLigth

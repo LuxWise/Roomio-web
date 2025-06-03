@@ -49,7 +49,7 @@ const BoxButton = ({
     <div
       className={`${bgColors[bgColor]} ${
         shadow && `shadow ${shadows[shadow]}`
-      }  ${className} min-w-12 min-h-12 p-5 rounded-xl  transition-all duration-300 cursor-pointer`}
+      }  ${className} min-w-12 min-h-12 p-3 rounded-xl  transition-all duration-300 cursor-pointer`}
       onClick={onClick}
     >
       <Icon color={colors[color]} />

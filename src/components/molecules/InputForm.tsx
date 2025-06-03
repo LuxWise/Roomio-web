@@ -3,46 +3,42 @@ import Typography from "../atoms/Typography";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 
-interface InputFormProps {
-  title: string;
-  titleButton: string;
-  onAdd: (value: {
-    name: string;
-    lastname: string;
-    email: string;
-  }) => Promise<void>;
-  className?: string;
+interface FieldConfig {
+  name: string;
+  type: string;
+  placeholder: string;
 }
 
-export const InputForm = ({
+interface InputFormProps<T> {
+  title: string;
+  titleButton: string;
+  fields: FieldConfig[];
+  onSubmit: (value: T) => Promise<void>;
+  className?: string;
+  initialValues: T;
+}
+
+export const InputForm = <T extends Record<string, any>>({
   title,
   titleButton,
   className,
-  onAdd,
-}: InputFormProps) => {
-  const [value, setValue] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-  });
+  onSubmit,
+  fields,
+  initialValues,
+}: InputFormProps<T>) => {
+  const [value, setValue] = useState<T>(initialValues);
 
-  const updateValues = (property: string, value: string) => {
-    setValue(prevObjet => ({
-      ...prevObjet,
-      [property]: value,
+  const updateValues = (property: string, val: string) => {
+    setValue(prev => ({
+      ...prev,
+      [property]: val,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!value.email.trim() || !value.lastname.trim() || !value.name.trim())
-      return;
-    await onAdd(value);
-    setValue({
-      name: "",
-      lastname: "",
-      email: "",
-    });
+    await onSubmit(value);
+    setValue(initialValues);
   };
 
   return (
@@ -50,42 +46,27 @@ export const InputForm = ({
       className={`flex flex-col items-center gap-4 p-6 bg-white rounded-xl shadow w-full max-w-lg border-2 border-gray-300 ${className}`}
       onSubmit={handleSubmit}
     >
-      <Typography variant="h5" color="blue" className=" text-[#1d63ed] mb-2">
+      <Typography variant="h2" color="blue" className="mb-2">
         {title}
       </Typography>
-      <Input
-        type="text"
-        placeholder="Nombre"
-        bgColor="white"
-        color="black"
-        className="w-full border-[#0f43b8]"
-        value={value.name}
-        onChange={e => updateValues("name", e.target.value)}
-      />
-      <Input
-        type="text"
-        placeholder="Apellido"
-        bgColor="white"
-        color="black"
-        className="w-full border-[#0f43b8]"
-        value={value.lastname}
-        onChange={e => updateValues("lastname", e.target.value)}
-      />
-      <Input
-        type="email"
-        placeholder="Correo"
-        bgColor="white"
-        color="black"
-        className="w-full border-[#0f43b8]"
-        value={value.email}
-        onChange={e => updateValues("email", e.target.value)}
-      />
-
+      {fields.map(field => (
+        <Input
+          key={field.name}
+          type={field.type}
+          placeholder={field.placeholder}
+          bgColor="white"
+          color="black"
+          className="w-full border-[#0f43b8] text-sm"
+          value={value[field.name] || ""}
+          onChange={e => updateValues(field.name, e.target.value)}
+        />
+      ))}
       <Button
+        rounded="md"
         bgColor="blue"
         color="white"
         text={titleButton}
-        className=" bg-[#1d63ed] w-full mt-2 "
+        className=" bg-[#1d63ed] w-full mt-2 text-xl font-bold "
       />
     </form>
   );

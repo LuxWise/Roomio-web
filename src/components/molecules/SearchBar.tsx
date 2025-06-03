@@ -130,7 +130,7 @@ const SearchBar = () => {
   return (
     <div className="flex gap-x-6 relative">
       <div
-        className={`grid grid-cols-3 grid-rows-1 gap-5 px-12 py-2 justify-center items-center min-w-96 rounded-full ${bgTheme} ${shadowTheme}`}
+        className={`grid grid-cols-3 grid-rows-1 gap-4 px-8 py-1 justify-center items-center min-w-2xl rounded-full ${bgTheme} ${shadowTheme}`}
       >
         {selectOptions.map((option, idx) => (
           <CardSelect
@@ -159,16 +159,16 @@ const SearchBar = () => {
         />
       </div>
       {calendarOpen && (
-        <div ref={calendarRef} className="absolute top-25 z-20">
+        <div ref={calendarRef} className="absolute top-17 z-20">
           <RangeCalendar
             visibleMonths={2}
             className="shadow-lg shadow-sky-500"
-            calendarWidth={350}
+            calendarWidth={335}
             color="primary"
             aria-atomic="true"
             classNames={{
               header: !isLight && "bg-[#587aff] rounded-lg",
-              title: isLight ? "text-[#587aff] text-lg" : "text-white text-lg",
+              title: isLight ? "text-[#587aff] text-md" : "text-white text-md",
               content: !isLight && "bg-[#4f6ee6]",
               cellButton: !isLight && " text-white ",
               gridHeaderCell: isLight ? "text-[#181c25]" : "text-black",
