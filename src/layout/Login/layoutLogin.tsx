@@ -70,7 +70,7 @@ function LayoutLogin({ children }: LayoutLoginProps) {
             className={`w-24 rounded-full ${bgHeaderImg} cursor-pointer`}
             onClick={handleHome}
           />
-          <div>
+          <div className="hidden md:block">
             <Typography variant="h6" className="select-none text-white">
               {phrases[phrase]}
             </Typography>

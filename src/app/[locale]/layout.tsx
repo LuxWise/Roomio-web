@@ -1,8 +1,11 @@
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AuthProvider } from "@/context/AuthContext";
 import type { Metadata } from "next";
 import "../globals.css";
+import { HotelProvider } from "@/context/HotelContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,9 +43,15 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen`}
       >
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <AuthProvider>
+          <HotelProvider>
+            <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID!}>
+              <NextIntlClientProvider locale={locale} messages={messages}>
+                {children}
+              </NextIntlClientProvider>
+            </GoogleOAuthProvider>
+          </HotelProvider>
+        </AuthProvider>
       </body>
     </html>
   );

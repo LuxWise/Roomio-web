@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Typography from "../atoms/Typography";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
+import { BarLoader } from "react-spinners";
 
 interface FieldConfig {
   name: string;
@@ -27,6 +28,7 @@ export const InputForm = <T extends Record<string, any>>({
   initialValues,
 }: InputFormProps<T>) => {
   const [value, setValue] = useState<T>(initialValues);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const updateValues = (property: string, val: string) => {
     setValue(prev => ({
@@ -37,8 +39,10 @@ export const InputForm = <T extends Record<string, any>>({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     await onSubmit(value);
     setValue(initialValues);
+    setLoading(false);
   };
 
   return (
@@ -61,13 +65,18 @@ export const InputForm = <T extends Record<string, any>>({
           onChange={e => updateValues(field.name, e.target.value)}
         />
       ))}
-      <Button
-        rounded="md"
-        bgColor="blue"
-        color="white"
-        text={titleButton}
-        className=" bg-[#1d63ed] w-full mt-2 text-xl font-bold "
-      />
+
+      {loading ? (
+        <BarLoader color="#FFF" />
+      ) : (
+        <Button
+          rounded="md"
+          bgColor="blue"
+          color="white"
+          text={titleButton}
+          className=" bg-[#1d63ed] w-full mt-2 text-xl font-bold "
+        />
+      )}
     </form>
   );
 };

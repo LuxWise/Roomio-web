@@ -2,11 +2,11 @@
   "HomeLayout": {
     "phrase1": "A destination for everyone",
     "phrase2": "A new adventure",
-    "phrase3": "Travel, discover, and enjoy",
+    "phrase3": "Travel, discover and enjoy",
     "firstLink": "Where are we going?",
     "secondLink": "Roomio",
     "register": "Register",
-    "login": "Login"
+    "login": "Log in"
   },
   "SearchBar": {
     "destiny": "Destination",
@@ -18,5 +18,30 @@
   },
   "Home": {
     "price": "night"
+  },
+  "Login": {
+    "title": "Welcome!",
+    "descriptcion": "Log in to access your account and enjoy all our services. Please enter your details in the form.",
+    "titleForm": "Log In",
+    "titleButtom": "Enter Roomio",
+    "email": "Email",
+    "password": "Password",
+    "forget": "Forgot your password?",
+    "answer": "Recover"
+  },
+  "Register": {
+    "title": "Create your account!",
+    "descriptcion": "Register to access all our services. Please complete the following form with your details.",
+    "titleForm": "User Registration",
+    "titleButtom": "User Registration",
+    "name": "First Name",
+    "lastname": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "rePassword": "Confirm password",
+    "question": "Already have an account?",
+    "answer": "Log in",
+    "passwordsNoMatch": "Password not match"
   }
 }

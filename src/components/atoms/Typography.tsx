@@ -14,7 +14,7 @@ const variantClasses: Record<variants, string> = {
   h2: "text-2xl font-semibold",
   h3: "text-xl font-semibold",
   h4: "text-lg font-medium",
-  h5: "text-md font-medium",
+  h5: "text-medium font-medium",
   h6: "text-sm font-medium",
   body: "text-base",
   span: "text-sm text-gray-500",
@@ -34,11 +34,15 @@ const Typography = ({
   color,
   className = "",
   children,
+  ...props
 }: TypographyProps) => {
   const Tag = variant.startsWith("h") ? variant : "span";
   const colorClass = color ? colorClasses[color] : "";
   return (
-    <Tag className={`${variantClasses[variant]} ${colorClass} ${className}`}>
+    <Tag
+      className={`${variantClasses[variant]} ${colorClass} ${className} `}
+      {...props}
+    >
       {children}
     </Tag>
   );
