@@ -90,7 +90,9 @@ function LayoutHome({ children }: LayoutHomeProps) {
           <div>
             <Typography
               variant="h6"
-              className={`select-none ${scroll ? "text-black" : "text-white"}`}
+              className={`select-none ${
+                scroll ? "text-black" : "text-white"
+              } hidden md:block`}
             >
               {phrases[phrase]}
             </Typography>

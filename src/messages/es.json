@@ -18,5 +18,30 @@
   },
   "Home": {
     "price": "noche"
+  },
+  "Login": {
+    "title": "¡Bienvenido!",
+    "descriptcion": "Inicia sesión para acceder a tu cuenta y disfrutar de todos nuestros servicios. Por favor, ingresa tus datos en el formulario.",
+    "titleForm": "Iniciar Sesion",
+    "titleButtom": "Ingresar en Roomio",
+    "email": "Correo",
+    "password": "contraseña",
+    "forget": "¿Olvisate tu contraseña?",
+    "answer": "Recupear"
+  },
+  "Register": {
+    "title": "¡Crea tu cuenta!",
+    "descriptcion": " Regístrate para acceder a todos nuestros servicios. Por favor,completa el siguiente formulario con tus datos.",
+    "titleForm": "Registro de Usuario",
+    "titleButtom": "Registro de Usuario",
+    "name": "Nombre",
+    "lastname": "Apellido",
+    "email": "Correo electrónico",
+    "phone": "Telefono",
+    "password": "contraseña",
+    "rePassword": "Confirmar contraseña",
+    "question": "¿Ya tienes cuenta?",
+    "answer": "Ingresar",
+    "passwordsNoMatch": "La contraseña no corresponde"
   }
 }
