@@ -51,7 +51,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       await login({ email, password });
       setUser("User Authenticated");
       return true;
-    } catch (error: unknown) {
+    } catch (error) {
+      console.log(error);
       return false;
     }
   };
@@ -60,7 +61,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       await googleLogin({ token });
       setUser("User Authenticated");
-    } catch (error: unknown) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleRegister = async ({
@@ -78,7 +81,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         phone,
         password,
       });
-    } catch (error: unknown) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

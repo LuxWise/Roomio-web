@@ -19,7 +19,7 @@ const MapPage = () => {
       await getHotels();
     };
     fetchHotels();
-  }, []);
+  }, [getHotels]);
 
   const handlePopUp = (id: string) => {
     setOpenPopUpId(prev => (prev === id ? null : id));

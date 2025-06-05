@@ -19,7 +19,7 @@ interface InputFormProps<T> {
   initialValues: T;
 }
 
-export const InputForm = <T extends Record<string, any>>({
+export const InputForm = <T extends Record<string, unknown>>({
   title,
   titleButton,
   className,
@@ -61,7 +61,12 @@ export const InputForm = <T extends Record<string, any>>({
           bgColor="white"
           color="black"
           className="w-full border-[#0f43b8] text-sm"
-          value={value[field.name] || ""}
+          value={
+            typeof value[field.name] === "string" ||
+            typeof value[field.name] === "number"
+              ? (value[field.name] as string | number)
+              : ""
+          }
           onChange={e => updateValues(field.name, e.target.value)}
         />
       ))}

@@ -57,7 +57,7 @@ export const HotelProvider = ({ children }: HotelProviderProps) => {
       const res = await room();
       if (res !== null) setRooms(res.data);
     } catch (error) {
-      // Puedes manejar el error aquí si lo necesitas
+      console.log(error);
     }
   };
 
@@ -66,7 +66,7 @@ export const HotelProvider = ({ children }: HotelProviderProps) => {
       const res = await hotel();
       if (res !== null) setHotels(res.data);
     } catch (error) {
-      // Puedes manejar el error aquí si lo necesitas
+      console.log(error);
     }
   };
 
