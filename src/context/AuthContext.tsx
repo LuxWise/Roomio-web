@@ -1,6 +1,12 @@
 "use client";
 
-import { googleLogin, login, register } from "@/services/AuthServices";
+import {
+  googleLogin,
+  login,
+  register,
+  registerCode,
+} from "@/services/AuthServices";
+import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useState } from "react";
 
 interface Login {
@@ -12,24 +18,32 @@ interface GoogleLogin {
   token: string;
 }
 
+interface RegisterCode {
+  email: string;
+  locale: string;
+}
+
 interface Register {
   name: string;
   lastname: string;
   email: string;
   phone: string;
   password: string;
+  code: string;
 }
 
 interface AuthContextType {
   user: string | null;
   login: ({ email, password }: Login) => Promise<boolean>;
   googleLogin: ({ token }: GoogleLogin) => Promise<void>;
+  registerCode: ({ email }: RegisterCode) => Promise<void>;
   register: ({
     name,
     lastname,
     email,
     phone,
     password,
+    code,
   }: Register) => Promise<void>;
   // logout: () => Promise<void>;
   // refresh: () => Promise<void>;
@@ -45,6 +59,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleLogin = async ({ email, password }: Login): Promise<boolean> => {
     try {
@@ -66,12 +81,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const handleRegisterCode = async ({ email, locale }: RegisterCode) => {
+    try {
+      await registerCode({ email, locale });
+      router.push("/register/code");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleRegister = async ({
     name,
     lastname,
     email,
     phone,
     password,
+    code,
   }: Register) => {
     try {
       await register({
@@ -80,6 +105,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         email,
         phone,
         password,
+        code,
       });
     } catch (error) {
       console.log(error);
@@ -92,6 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         user,
         login: handleLogin,
         googleLogin: handleGoogleLogin,
+        registerCode: handleRegisterCode,
         register: handleRegister,
       }}
     >

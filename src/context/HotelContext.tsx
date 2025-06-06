@@ -1,6 +1,11 @@
 "use client";
 import { createContext, ReactNode, useState } from "react";
-import { hotel, room } from "@/services/HotelServices";
+import {
+  getHotelsService,
+  getRoomByIdService,
+  getRoomMediaByIdService,
+  getRoomsService,
+} from "@/services/HotelServices";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 interface Hotel {
@@ -18,6 +23,11 @@ interface Hotel {
   coordinatesLongitude: number;
 }
 
+interface RoomType {
+  name: string;
+  description: string;
+}
+
 interface Room {
   id: string;
   name: string;
@@ -31,13 +41,22 @@ interface Room {
   availablePets: boolean;
   price: number;
   hotelId: Hotel;
+  roomTypetId: RoomType;
+}
+
+interface RoomMedia {
+  roomMediaLink: string;
 }
 
 interface HotelContextType {
   hotels: Hotel[] | null;
   rooms: Room[] | null;
+  room: Room | null;
+  roomMedia: string[] | null;
   getHotels: () => Promise<void>;
   getRooms: () => Promise<void>;
+  getRoomById: (id: string) => Promise<void>;
+  getRoomMediaById: (id: string) => Promise<void>;
 }
 
 interface HotelProviderProps {
@@ -51,10 +70,12 @@ export const HotelContext = createContext<HotelContextType | undefined>(
 export const HotelProvider = ({ children }: HotelProviderProps) => {
   const [hotels, setHotels] = useState<Hotel[] | null>(null);
   const [rooms, setRooms] = useState<Room[] | null>(null);
+  const [room, setRoom] = useState<Room | null>(null);
+  const [roomMedia, setRoomMedia] = useState<string[] | null>(null);
 
   const getRooms = async (): Promise<void> => {
     try {
-      const res = await room();
+      const res = await getRoomsService();
       if (res !== null) setRooms(res.data);
     } catch (error) {
       console.log(error);
@@ -63,8 +84,26 @@ export const HotelProvider = ({ children }: HotelProviderProps) => {
 
   const getHotels = async (): Promise<void> => {
     try {
-      const res = await hotel();
+      const res = await getHotelsService();
       if (res !== null) setHotels(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getRoomById = async (id: string): Promise<void> => {
+    try {
+      const res = await getRoomByIdService(id);
+      if (res !== null) setRoom(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getRoomMediaById = async (id: string): Promise<void> => {
+    try {
+      const res = await getRoomMediaByIdService(id);
+      if (res !== null) setRoomMedia(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -75,8 +114,12 @@ export const HotelProvider = ({ children }: HotelProviderProps) => {
       value={{
         rooms,
         hotels,
+        room,
+        roomMedia,
         getRooms,
         getHotels,
+        getRoomById,
+        getRoomMediaById,
       }}
     >
       {children}

@@ -13,6 +13,7 @@ interface CardProps {
   textColor?: string;
   img: string | StaticImport;
   shadow?: shadow;
+  onClick?: () => void;
 }
 
 const shadows: Record<shadow, string> = {
@@ -29,10 +30,12 @@ const Card = ({
   textColor,
   img,
   shadow,
+  onClick,
 }: CardProps) => {
   return (
     <div
       className={`flex flex-col px-5 py-2  gap-y-3 rounded-xl ${className}}`}
+      onClick={onClick}
     >
       <div className="relative cursor-pointer">
         <Image

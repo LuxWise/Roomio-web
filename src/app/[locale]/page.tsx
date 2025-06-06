@@ -11,6 +11,7 @@ import useScroll from "@/hooks/useScroll";
 import LayoutHome from "@/layout/Home/layoutHome";
 import Map from "@/public/jpg/map.jpg";
 import useHotel from "@/hooks/useHotel";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { rooms, getRooms } = useHotel();
@@ -18,6 +19,7 @@ export default function Home() {
   const isLight = useTheme(state => state.theme);
   const scroll = useScroll(state => state.scroll);
   const t = useTranslations("Home");
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
@@ -27,6 +29,10 @@ export default function Home() {
     };
     fetchRooms();
   }, []);
+
+  const handleRoom = (id: string) => {
+    router.push(`rooms/${id}`);
+  };
 
   const bgMain = isLight ? "bg-white" : "bg-[#181c25]";
   const textColor = isLight ? "text-black" : "text-white";
@@ -94,6 +100,7 @@ export default function Home() {
                     price={`$ ${room.price} ${t("price")}`}
                     textColor={textColor}
                     shadow={isLight ? "blue" : "white"}
+                    onClick={() => handleRoom(room.id)}
                   />
                 ))}
             </section>
