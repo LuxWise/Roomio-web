@@ -9,12 +9,18 @@ interface GoogleLogin {
   token: string;
 }
 
+interface RegisterCode {
+  email: string;
+  locale: string;
+}
+
 interface Register {
   name: string;
   lastname: string;
   email: string;
   phone: string;
   password: string;
+  code: string;
 }
 
 const api = axios.create({
@@ -55,12 +61,29 @@ export async function googleLogin({ token }: GoogleLogin) {
   }
 }
 
+export async function registerCode({ email, locale }: RegisterCode) {
+  try {
+    const response = await api.post("/register/code", {
+      email: email,
+      locale: locale,
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.error ?? "Unknown error";
+      throw new Error(message);
+    }
+    throw new Error(`Server error ${error}`);
+  }
+}
+
 export async function register({
   name,
   lastname,
   email,
   phone,
   password,
+  code,
 }: Register) {
   try {
     const response = await api.post("/register", {
@@ -69,6 +92,7 @@ export async function register({
       email: email,
       phone: phone,
       password: password,
+      code: code,
     });
 
     return response.data;

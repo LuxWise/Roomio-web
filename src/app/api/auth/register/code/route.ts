@@ -3,30 +3,21 @@ import { AxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Payload {
-  name: string;
-  lastname: string;
   email: string;
-  phone: string;
-  password: string;
-  code: string;
+  locale: string;
 }
 
 export async function POST(req: NextRequest) {
   try {
     const data: Payload = await req.json();
 
-    await api.post("/api/auth/register", {
-      name: data.name,
-      lastname: data.lastname,
+    await api.post("/api/auth/register/code", {
       email: data.email,
-      phone: data.phone,
-      password: data.password,
-      code: data.code,
-      roleId: 1,
+      locale: data.locale,
     });
 
     return NextResponse.json(
-      { status: "success", message: "register success" },
+      { status: "success", message: "send code success" },
       { status: 200 }
     );
   } catch (e) {

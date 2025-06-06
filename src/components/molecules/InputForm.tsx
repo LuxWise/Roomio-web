@@ -17,6 +17,8 @@ interface InputFormProps<T> {
   onSubmit: (value: T) => Promise<void>;
   className?: string;
   initialValues: T;
+  showCodeSection?: boolean; // NUEVA PROP
+  codeLabel?: string; // Etiqueta opcional para el código
 }
 
 export const InputForm = <T extends Record<string, unknown>>({
@@ -26,9 +28,12 @@ export const InputForm = <T extends Record<string, unknown>>({
   onSubmit,
   fields,
   initialValues,
+  showCodeSection = false,
+  codeLabel = "Ingresa el código de 6 dígitos",
 }: InputFormProps<T>) => {
   const [value, setValue] = useState<T>(initialValues);
   const [loading, setLoading] = useState<boolean>(false);
+  const [code, setCode] = useState<string>("");
 
   const updateValues = (property: string, val: string) => {
     setValue(prev => ({
@@ -37,11 +42,22 @@ export const InputForm = <T extends Record<string, unknown>>({
     }));
   };
 
+  const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, "");
+    if (val.length <= 6) setCode(val);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await onSubmit(value);
+    // Si se muestra la sección de código, lo agregamos al value
+    let submitValue = value;
+    if (showCodeSection) {
+      submitValue = { ...value, code } as T;
+    }
+    await onSubmit(submitValue);
     setValue(initialValues);
+    setCode("");
     setLoading(false);
   };
 
@@ -53,6 +69,25 @@ export const InputForm = <T extends Record<string, unknown>>({
       <Typography variant="h2" color="blue" className="mb-2">
         {title}
       </Typography>
+
+      {showCodeSection && (
+        <div className="flex flex-col items-center mb-2 w-full">
+          <label className="mb-2 text-gray-700 font-semibold">
+            {codeLabel}
+          </label>
+          <input
+            type="text"
+            inputMode="numeric"
+            pattern="\d{6}"
+            maxLength={6}
+            value={code}
+            onChange={handleCodeChange}
+            className="border border-[#0f43b8] rounded px-4 py-2 text-center text-lg tracking-widest w-40 outline-none focus:ring-2 focus:ring-sky-400"
+            placeholder="______"
+          />
+        </div>
+      )}
+
       {fields.map(field => (
         <Input
           key={field.name}

@@ -6,7 +6,7 @@
     "firstLink": "Where are we going?",
     "secondLink": "Roomio",
     "register": "Register",
-    "login": "Log in"
+    "login": "Login"
   },
   "SearchBar": {
     "destiny": "Destination",
@@ -22,26 +22,41 @@
   "Login": {
     "title": "Welcome!",
     "descriptcion": "Log in to access your account and enjoy all our services. Please enter your details in the form.",
-    "titleForm": "Log In",
-    "titleButtom": "Enter Roomio",
+    "titleForm": "Login",
+    "titleButtom": "Login to Roomio",
     "email": "Email",
     "password": "Password",
     "forget": "Forgot your password?",
     "answer": "Recover"
   },
   "Register": {
-    "title": "Create your account!",
-    "descriptcion": "Register to access all our services. Please complete the following form with your details.",
     "titleForm": "User Registration",
     "titleButtom": "User Registration",
+    "titleCode": "Enter the code sent to your email",
     "name": "First Name",
     "lastname": "Last Name",
     "email": "Email",
     "phone": "Phone",
     "password": "Password",
     "rePassword": "Confirm password",
+    "passwordsNoMatch": "Passwords do not match"
+  },
+  "RegisterCode": {
+    "descriptcion": "Register to access all our services. Please complete the following form with your information.",
+    "title": "Create your account!",
+    "titleForm": "User Registration",
+    "titleButtom": "Proceed with registration",
+    "email": "Email",
     "question": "Already have an account?",
-    "answer": "Log in",
-    "passwordsNoMatch": "Password not match"
+    "answer": "Login"
+  },
+  "RegisterSuccess": {
+    "title": "Congratulations!",
+    "descriptcion": "Your account has been created successfully.",
+    "descriptcion2": "You can now log in and start using our services.",
+    "titleButtom": "Go to Login"
+  },
+  "Google": {
+    "login": "Sign in with Google"
   }
 }

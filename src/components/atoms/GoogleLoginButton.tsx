@@ -1,8 +1,11 @@
 "use client";
 import { useGoogleLogin } from "@react-oauth/google";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export default function GoogleLoginButton() {
+  const t = useTranslations("Google");
+
   const login = useGoogleLogin({
     onSuccess: tokenResponse => {
       console.log("Google token:", tokenResponse);
@@ -22,10 +25,10 @@ export default function GoogleLoginButton() {
         src="https://www.svgrepo.com/show/475656/google-color.svg"
         alt="Google"
         className="w-5 h-5"
+        width={20}
+        height={20}
       />
-      <span className="text-sm font-medium text-gray-700">
-        Iniciar sesión con Google
-      </span>
+      <span className="text-sm font-medium text-gray-700">{t("login")}</span>
     </button>
   );
 }

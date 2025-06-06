@@ -30,18 +30,33 @@
     "answer": "Recupear"
   },
   "Register": {
-    "title": "¡Crea tu cuenta!",
-    "descriptcion": " Regístrate para acceder a todos nuestros servicios. Por favor,completa el siguiente formulario con tus datos.",
     "titleForm": "Registro de Usuario",
     "titleButtom": "Registro de Usuario",
+    "titleCode": "Ingrese el codigo enviado a su correo",
     "name": "Nombre",
     "lastname": "Apellido",
     "email": "Correo electrónico",
     "phone": "Telefono",
     "password": "contraseña",
     "rePassword": "Confirmar contraseña",
-    "question": "¿Ya tienes cuenta?",
-    "answer": "Ingresar",
     "passwordsNoMatch": "La contraseña no corresponde"
+  },
+  "RegisterCode": {
+    "descriptcion": " Regístrate para acceder a todos nuestros servicios. Por favor,completa el siguiente formulario con tus datos.",
+    "title": "¡Crea tu cuenta!",
+    "titleForm": "Registro de Usuario",
+    "titleButtom": "Proceder con el registro",
+    "email": "Correo electrónico",
+    "question": "¿Ya tienes cuenta?",
+    "answer": "Ingresar"
+  },
+  "RegisterSuccess": {
+    "title": "¡Felicidades!",
+    "descriptcion": "Tu cuenta ha sido creada exitosamente.",
+    "descriptcion2": "Ahora puedes iniciar sesión y comenzar a usar nuestros servicios.",
+    "titleButtom": "Ir a Iniciar Sesión"
+  },
+  "Google": {
+    "login": "Iniciar sesión con Google"
   }
 }
