@@ -1,5 +1,6 @@
 "use client";
 import { useGoogleLogin } from "@react-oauth/google";
+import Image from "next/image";
 
 export default function GoogleLoginButton() {
   const login = useGoogleLogin({
@@ -17,7 +18,7 @@ export default function GoogleLoginButton() {
       onClick={() => login()}
       className="flex items-center gap-2 mt-4 px-4 py-2 border border-gray-300 rounded-lg shadow hover:bg-gray-100 transition-colors"
     >
-      <img
+      <Image
         src="https://www.svgrepo.com/show/475656/google-color.svg"
         alt="Google"
         className="w-5 h-5"

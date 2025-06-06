@@ -1,7 +1,5 @@
 "use client";
-import Card from "@/components/molecules/Card";
 import React from "react";
-import { InputForm } from "@/components/molecules/InputForm";
 import { useDropzone } from "react-dropzone";
 import Typography from "@/components/atoms/Typography";
 import useTheme from "@/hooks/useTheme";
@@ -13,38 +11,38 @@ const ContactPage = () => {
   const { getRootProps, getInputProps, acceptedFiles, isDragActive } =
     useDropzone();
 
-  const setForm = async (value: {
-    name: string;
-    lastname: string;
-    email: string;
-    subject?: string;
-    text?: string;
-  }) => {
-    const formData = new FormData();
-    formData.append("email", value.email);
-    formData.append(
-      "subject",
-      value.subject || "Solicitud de información hotelera"
-    );
-    formData.append(
-      "text",
-      value.text ||
-        `Consulta de ${value.name} ${value.lastname} sobre servicios hoteleros`
-    );
+  // const setForm = async (value: {
+  //   name: string;
+  //   lastname: string;
+  //   email: string;
+  //   subject?: string;
+  //   text?: string;
+  // }) => {
+  //   const formData = new FormData();
+  //   formData.append("email", value.email);
+  //   formData.append(
+  //     "subject",
+  //     value.subject || "Solicitud de información hotelera"
+  //   );
+  //   formData.append(
+  //     "text",
+  //     value.text ||
+  //       `Consulta de ${value.name} ${value.lastname} sobre servicios hoteleros`
+  //   );
 
-    if (acceptedFiles.length > 0) {
-      formData.append("file", acceptedFiles[0], acceptedFiles[0].name);
-    }
+  //   if (acceptedFiles.length > 0) {
+  //     formData.append("file", acceptedFiles[0], acceptedFiles[0].name);
+  //   }
 
-    await fetch("/api/data", {
-      method: "POST",
-      body: formData,
-    });
-  };
+  //   await fetch("/api/data", {
+  //     method: "POST",
+  //     body: formData,
+  //   });
+  // };
 
   const contactBg = isLight ? "bg-[#1a2634]" : "bg-[#232946]";
-  const contactCardBg = isLight ? "bg-[#22304a]" : "bg-[#181c25]";
-  const contactText = isLight ? "text-white" : "text-gray-200";
+  // const contactCardBg = isLight ? "bg-[#22304a]" : "bg-[#181c25]";
+  // const contactText = isLight ? "text-white" : "text-gray-200";
 
   return (
     <LayoutHome>
@@ -67,12 +65,12 @@ const ContactPage = () => {
             ayudarte a maximizar tus reservas y simplificar la administración de
             tu alojamiento.
           </Typography>
-          <InputForm
+          {/* <InputForm
             title="Solicita información de servicios"
             titleButton="Enviar consulta"
             onAdd={setForm}
             className="hover:shadow-xl hover:shadow-slate-600 transition-all duration-300"
-          />
+          /> */}
           <div
             {...getRootProps()}
             className={`mt-6  p-6 border-2 border-dashed rounded-lg cursor-pointer transition-colors duration-300 ${
@@ -99,7 +97,7 @@ const ContactPage = () => {
           </div>
         </div>
         <div className="h-full w-4/6 flex flex-col justify-center items-center gap-8 px-10">
-          <div className="grid grid-cols-2 gap-8 w-full">
+          {/* <div className="grid grid-cols-2 gap-8 w-full">
             <Card
               title="Gestión de Reservas"
               description="Centraliza y automatiza tus reservas desde múltiples plataformas como Airbnb y Booking."
@@ -124,7 +122,7 @@ const ContactPage = () => {
               className={`${contactCardBg}  shadow-lg`}
               textColor={contactText}
             />
-          </div>
+          </div> */}
         </div>
       </section>
     </LayoutHome>
