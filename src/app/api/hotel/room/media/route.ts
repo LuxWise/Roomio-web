@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const res = await api.get(`/api/hotel/rooms/images/${data.id}`);
     const links =
       Array.isArray(res.data) && res.data.length > 0
-        ? res.data.map((item: any) => item.roomMediaLink)
+        ? res.data.map(item => item.roomMediaLink)
         : [];
 
     return NextResponse.json({ success: true, data: links });

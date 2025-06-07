@@ -8,7 +8,7 @@ import Button from "@/components/atoms/Button";
 import Typography from "@/components/atoms/Typography";
 
 const RegisterSuccessPage = () => {
-  const t = useTranslations("RegisterSuccess");
+  const t = useTranslations("RecoverSuccess");
   const router = useRouter();
 
   const handleLogin = () => {
@@ -21,15 +21,13 @@ const RegisterSuccessPage = () => {
         <div className="flex flex-col justify-center h-screen w-full bg-radial from-white from-20% to-[#729aeb] items-center">
           <CircleCheck color="#05df46" className="w-18 h-18 bg-gree" />
           <Typography
-            variant="h1"
+            variant="h2"
             className="text-2xl font-bold text-gray-800 mb-2"
           >
             {t("title")}
           </Typography>
           <Typography variant="h6" className="text-gray-600 mb-6 text-center">
             {t("descriptcion")}
-            <br />
-            {t("descriptcion2")}
           </Typography>
 
           <Button

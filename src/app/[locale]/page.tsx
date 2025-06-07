@@ -14,7 +14,7 @@ import useHotel from "@/hooks/useHotel";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { rooms, getRooms } = useHotel();
+  const { rooms, getRooms, getRoomsByDestination } = useHotel();
   const [loading, setLoading] = useState<boolean>(false);
   const isLight = useTheme(state => state.theme);
   const scroll = useScroll(state => state.scroll);
@@ -32,6 +32,20 @@ export default function Home() {
 
   const handleRoom = (id: string) => {
     router.push(`rooms/${id}`);
+  };
+
+  const handleFilterRooms = (destination: string) => {
+    setLoading(true);
+
+    const fetchRooms = async () => {
+      if (destination === "" || !destination) {
+        await getRooms();
+      }
+      await getRoomsByDestination(destination);
+
+      setLoading(false);
+    };
+    fetchRooms();
   };
 
   const bgMain = isLight ? "bg-white" : "bg-[#181c25]";
@@ -58,7 +72,7 @@ export default function Home() {
   ].join(" ");
 
   const searchBarSectionClass = [
-    scroll ? "sticky top-[65px]" : "absolute top-50",
+    scroll ? "sticky top-20 md:top-[65px]" : "absolute top-20 md:top-50",
     "z-20 flex justify-center transition-all duration-200",
   ].join(" ");
 
@@ -66,7 +80,7 @@ export default function Home() {
     "grid grid-cols-2 md:grid-cols-3 md:grid-rows-2",
     "lg:grid-cols-5 lg:grid-rows-2",
     "md:gap-y-5 lg:gap-y-8",
-    "py-10 md:py-14 lg:py-20",
+    "py-72 md:py-14 lg:py-20",
     "md:px-12 lg:px-22",
   ].join(" ");
 
@@ -82,7 +96,11 @@ export default function Home() {
             />
           </section>
           <section className={searchBarSectionClass}>
-            <SearchBar />
+            <SearchBar
+              onSearch={({ destination }) => {
+                handleFilterRooms(destination);
+              }}
+            />
           </section>
           {loading ? (
             <div className="mt-28">

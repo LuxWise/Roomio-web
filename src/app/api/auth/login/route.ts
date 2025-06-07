@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       password: data.password,
     });
 
-    if (!res.data.token) {
+    if (!res.data.accessToken && !res.data.refreshToken) {
       return NextResponse.json({ error: "Missing token" }, { status: 400 });
     }
 
@@ -33,18 +33,25 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
 
-    response.cookies.set("auth_token", res.data.token, {
+    response.cookies.set("auth_token", res.data.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: OperativeSystem() === "iOS" ? "lax" : "strict",
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60,
+      path: "/",
+    });
+
+    response.cookies.set("refresh_token", res.data.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: OperativeSystem() === "iOS" ? "lax" : "strict",
+      maxAge: 60 * 60 * 24 * 10,
       path: "/",
     });
 
     return response;
   } catch (e) {
     const error = e as AxiosError;
-    console.log(e);
     if (error.response) {
       const status = error.response.status;
       const message = status === 401 ? "Bad credentials" : e;

@@ -14,6 +14,17 @@ interface RegisterCode {
   locale: string;
 }
 
+interface RecoverCode {
+  email: string;
+  locale: string;
+}
+
+interface RecoverPassword {
+  email: string;
+  newPassword: string;
+  code: string;
+}
+
 interface Register {
   name: string;
   lastname: string;
@@ -21,6 +32,7 @@ interface Register {
   phone: string;
   password: string;
   code: string;
+  locale: string;
 }
 
 const api = axios.create({
@@ -33,6 +45,45 @@ export async function login({ email, password }: Login) {
     const response = await api.post("/login", {
       email: email,
       password: password,
+    });
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.error ?? "Unknown error";
+      throw new Error(message);
+    }
+    throw new Error(`Server error ${error}`);
+  }
+}
+
+export async function recoverCode({ email, locale }: RecoverCode) {
+  try {
+    const response = await api.post("/login/recover", {
+      email: email,
+      locale: locale,
+    });
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.error ?? "Unknown error";
+      throw new Error(message);
+    }
+    throw new Error(`Server error ${error}`);
+  }
+}
+
+export async function recoverPassword({
+  email,
+  newPassword,
+  code,
+}: RecoverPassword) {
+  try {
+    const response = await api.patch("login/recover/code", {
+      email: email,
+      newPassword: newPassword,
+      code: code,
     });
 
     return response.data;
@@ -84,6 +135,7 @@ export async function register({
   phone,
   password,
   code,
+  locale,
 }: Register) {
   try {
     const response = await api.post("/register", {
@@ -93,6 +145,7 @@ export async function register({
       phone: phone,
       password: password,
       code: code,
+      locale: locale,
     });
 
     return response.data;

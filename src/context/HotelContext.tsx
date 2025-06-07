@@ -4,6 +4,7 @@ import {
   getHotelsService,
   getRoomByIdService,
   getRoomMediaByIdService,
+  getRoomsByDestinationService,
   getRoomsService,
 } from "@/services/HotelServices";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
@@ -44,10 +45,6 @@ interface Room {
   roomTypetId: RoomType;
 }
 
-interface RoomMedia {
-  roomMediaLink: string;
-}
-
 interface HotelContextType {
   hotels: Hotel[] | null;
   rooms: Room[] | null;
@@ -55,6 +52,7 @@ interface HotelContextType {
   roomMedia: string[] | null;
   getHotels: () => Promise<void>;
   getRooms: () => Promise<void>;
+  getRoomsByDestination: (destination: string) => Promise<void>;
   getRoomById: (id: string) => Promise<void>;
   getRoomMediaById: (id: string) => Promise<void>;
 }
@@ -76,6 +74,15 @@ export const HotelProvider = ({ children }: HotelProviderProps) => {
   const getRooms = async (): Promise<void> => {
     try {
       const res = await getRoomsService();
+      if (res !== null) setRooms(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getRoomsByDestination = async (descripción: string): Promise<void> => {
+    try {
+      const res = await getRoomsByDestinationService(descripción);
       if (res !== null) setRooms(res.data);
     } catch (error) {
       console.log(error);
@@ -117,6 +124,7 @@ export const HotelProvider = ({ children }: HotelProviderProps) => {
         room,
         roomMedia,
         getRooms,
+        getRoomsByDestination,
         getHotels,
         getRoomById,
         getRoomMediaById,

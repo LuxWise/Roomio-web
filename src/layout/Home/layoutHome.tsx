@@ -11,6 +11,8 @@ import { IoEarth } from "react-icons/io5";
 import { useTranslations } from "next-intl";
 import SelectList from "@/components/atoms/SelectList";
 import Button from "@/components/atoms/Button";
+import useAuth from "@/hooks/useAuth";
+import { User } from "lucide-react";
 
 interface LayoutHomeProps {
   children: ReactNode;
@@ -18,6 +20,7 @@ interface LayoutHomeProps {
 
 function LayoutHome({ children }: LayoutHomeProps) {
   const [openLenguage, setOpenLenguage] = useState(false);
+  const { user } = useAuth();
   const isLight = useTheme(state => state.theme);
   const setTheme = useTheme(state => state.setTheme);
   const toggleTheme = useTheme(state => state.toggleTheme);
@@ -132,20 +135,28 @@ function LayoutHome({ children }: LayoutHomeProps) {
             />
           )}
           <div className="flex gap-3">
-            <Button
-              text={t("register")}
-              bgColor="blue"
-              color="white"
-              onClick={handleRegister}
-              rounded="xl"
-            />
-            <Button
-              text={t("login")}
-              bgColor="blue"
-              color="white"
-              onClick={handleLogin}
-              rounded="xl"
-            />
+            {!user ? (
+              <>
+                <Button
+                  text={t("register")}
+                  bgColor="blue"
+                  color="white"
+                  onClick={handleRegister}
+                  rounded="xl"
+                />
+                <Button
+                  text={t("login")}
+                  bgColor="blue"
+                  color="white"
+                  onClick={handleLogin}
+                  rounded="xl"
+                />
+              </>
+            ) : (
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500">
+                <User className="text-white" size={24} />
+              </div>
+            )}
           </div>
         </section>
       </header>

@@ -7,6 +7,7 @@ import useAuth from "@/hooks/useAuth";
 import GoogleLoginButton from "@/components/atoms/GoogleLoginButton";
 import { useTranslations } from "next-intl";
 import { InputForm } from "@/components/molecules/InputForm";
+import { useRouter } from "next/navigation";
 
 interface Login {
   email: string;
@@ -16,14 +17,21 @@ interface Login {
 const LoginPage = () => {
   const isLight = useTheme(state => state.theme);
   const t = useTranslations("Login");
+  const route = useRouter();
   const { login } = useAuth();
 
-  const handleForget = () => {
-    console.log("forget");
+  const handleRecover = () => {
+    route.push("/login/recover");
   };
 
   const handleLogin = async (data: Login) => {
-    await login({ email: data.email, password: data.password });
+    const loginAction = await login({
+      email: data.email,
+      password: data.password,
+    });
+    if (loginAction) {
+      route.push("/");
+    }
   };
 
   const formFields = [
@@ -32,7 +40,7 @@ const LoginPage = () => {
   ];
 
   const bgMain = isLight
-    ? "bg-conic-180 from-sky-300 via-sky-50 to-sky-300"
+    ? " bg-gradient-to-r from-sky-100 via-sky-100 to-sky-600"
     : "bg-[#181c25]";
 
   return (
@@ -63,7 +71,7 @@ const LoginPage = () => {
           <GoogleLoginButton />
           <div className="flex gap-2">
             <Typography variant="span">{t("forget")}</Typography>
-            <div onClick={handleForget}>
+            <div onClick={handleRecover}>
               <Typography variant="h6" color="blue" className="cursor-pointer">
                 {t("answer")}
               </Typography>
