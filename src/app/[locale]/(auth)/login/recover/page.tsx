@@ -1,38 +1,30 @@
 "use client";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
-import Typography from "@/components/atoms/Typography";
+import { usePathname } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 import useTheme from "@/hooks/useTheme";
 import LayoutLogin from "@/layout/Login/layoutLogin";
 import { InputForm } from "@/components/molecules/InputForm";
 import { SyncLoader } from "react-spinners";
 
-interface Register {
+interface RecoverCode {
   email: string;
 }
 
-const RegisterPage = () => {
+const RecoverPage = () => {
   const isLight = useTheme(state => state.theme);
-  const t = useTranslations("RegisterCode");
-  const router = useRouter();
-  const { registerCode } = useAuth();
-  const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("Recover");
+  const { recoverCode } = useAuth();
   const [loading, setLoading] = useState<boolean>(false);
   const pathname = usePathname();
 
   const currentLocale = pathname.split("/")[1] || "es";
 
-  const handleLogin = () => {
-    router.push("/login");
-  };
-
-  const handleRegister = async (data: Register) => {
+  const handleRecoverCode = async (data: RecoverCode) => {
     setLoading(true);
-    setError(null);
     const action = async () => {
-      await registerCode({
+      await recoverCode({
         email: data.email,
         locale: currentLocale,
       });
@@ -59,50 +51,21 @@ const RegisterPage = () => {
       className={`flex flex-col items-center h-screen ${bgMain} transition-colors duration-500 `}
     >
       <LayoutLogin>
-        <section className="flex flex-col gap-2 md:w-3/6 lg:w-2/6 h-full items-center pt-40 px-10 bg-white">
+        <section className="flex flex-col gap-2 md:w-3/6 lg:w-2/6 h-full items-center justify-center px-10 bg-white">
           {loading ? (
             <section className="flex flex-col w-full h-full justify-center items-center">
               <SyncLoader color={loaderColor} />
             </section>
           ) : (
             <>
-              <div className="flex flex-col items-center mb-8 ">
-                <Typography
-                  variant="h2"
-                  className="font-bold text-[#1d63ed] mb-2"
-                >
-                  {t("title")}
-                </Typography>
-                <Typography
-                  variant="h6"
-                  className="text-gray-600 text-center max-w-xl"
-                >
-                  {t("descriptcion")}
-                </Typography>
-              </div>
-              {error && (
-                <div className="mb-2 text-red-500 text-sm">{error}</div>
-              )}
               <InputForm
                 title={t("titleForm")}
                 titleButton={t("titleButtom")}
                 fields={formFields}
                 initialValues={{ email: "" }}
-                onSubmit={handleRegister}
+                onSubmit={handleRecoverCode}
                 className="flex flex-col justify-center items-center  "
               />
-              <div className="flex gap-2">
-                <Typography variant="span">{t("question")}</Typography>
-                <div onClick={handleLogin}>
-                  <Typography
-                    variant="h6"
-                    color="blue"
-                    className="cursor-pointer"
-                  >
-                    {t("answer")}
-                  </Typography>
-                </div>
-              </div>
             </>
           )}
         </section>
@@ -111,4 +74,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default RecoverPage;

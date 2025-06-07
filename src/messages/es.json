@@ -1,12 +1,12 @@
 {
   "HomeLayout": {
-    "phrase1": "Un destion para todos",
+    "phrase1": "Un destino para todos",
     "phrase2": "Una nueva aventura",
     "phrase3": "Viajar, conocer y disfrutar",
-    "firstLink": "A donde vamos?",
+    "firstLink": "¿A dónde vamos?",
     "secondLink": "Roomio",
     "register": "Registrarse",
-    "login": "Iniciar sesion"
+    "login": "Iniciar sesión"
   },
   "SearchBar": {
     "destiny": "Destino",
@@ -22,27 +22,45 @@
   "Login": {
     "title": "¡Bienvenido!",
     "descriptcion": "Inicia sesión para acceder a tu cuenta y disfrutar de todos nuestros servicios. Por favor, ingresa tus datos en el formulario.",
-    "titleForm": "Iniciar Sesion",
+    "titleForm": "Iniciar sesión",
     "titleButtom": "Ingresar en Roomio",
-    "email": "Correo",
-    "password": "contraseña",
-    "forget": "¿Olvisate tu contraseña?",
-    "answer": "Recupear"
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "forget": "¿Olvidaste tu contraseña?",
+    "answer": "Recuperar"
+  },
+  "Recover": {
+    "titleForm": "Recuperar contraseña",
+    "titleButtom": "Enviar código",
+    "email": "Correo de recuperación"
+  },
+  "RecoverCode": {
+    "titleForm": "Recuperar contraseña",
+    "titleButtom": "Enviar código",
+    "password": "Contraseña",
+    "newPassword": "Nueva contraseña",
+    "titleCode": "Ingrese el código enviado a su correo"
+  },
+  "RecoverSuccess": {
+    "title": "¡Felicidades!",
+    "descriptcion": "Tu cuenta ha sido creada exitosamente.",
+    "descriptcion2": "Ahora puedes iniciar sesión y comenzar a usar nuestros servicios.",
+    "titleButtom": "Ir a Iniciar Sesión"
   },
   "Register": {
     "titleForm": "Registro de Usuario",
     "titleButtom": "Registro de Usuario",
-    "titleCode": "Ingrese el codigo enviado a su correo",
+    "titleCode": "Ingrese el código enviado a su correo",
     "name": "Nombre",
     "lastname": "Apellido",
     "email": "Correo electrónico",
-    "phone": "Telefono",
-    "password": "contraseña",
+    "phone": "Teléfono",
+    "password": "Contraseña",
     "rePassword": "Confirmar contraseña",
-    "passwordsNoMatch": "La contraseña no corresponde"
+    "passwordsNoMatch": "Las contraseñas no coinciden"
   },
   "RegisterCode": {
-    "descriptcion": " Regístrate para acceder a todos nuestros servicios. Por favor,completa el siguiente formulario con tus datos.",
+    "descriptcion": "Regístrate para acceder a todos nuestros servicios. Por favor, completa el siguiente formulario con tus datos.",
     "title": "¡Crea tu cuenta!",
     "titleForm": "Registro de Usuario",
     "titleButtom": "Proceder con el registro",
@@ -58,5 +76,10 @@
   },
   "Google": {
     "login": "Iniciar sesión con Google"
+  },
+  "Notfound": {
+    "title": "Página no encontrada",
+    "descriptcion": "¡Ups! La página que buscas no existe o ha sido movida.",
+    "descriptcion2": "Por favor, revisa la URL o regresa a la página principal."
   }
 }

@@ -29,12 +29,30 @@
     "forget": "Forgot your password?",
     "answer": "Recover"
   },
+  "Recover": {
+    "titleForm": "Recover password",
+    "titleButtom": "Send code",
+    "email": "Recovery email"
+  },
+  "RecoverCode": {
+    "titleForm": "Recover password",
+    "titleButtom": "Send code",
+    "password": "Password",
+    "newPassword": "New password",
+    "titleCode": "Enter the code sent to your email"
+  },
+  "RecoverSuccess": {
+    "title": "Congratulations!",
+    "descriptcion": "Your account has been created successfully.",
+    "descriptcion2": "Now you can log in and start using our services.",
+    "titleButtom": "Go to Login"
+  },
   "Register": {
     "titleForm": "User Registration",
     "titleButtom": "User Registration",
     "titleCode": "Enter the code sent to your email",
-    "name": "First Name",
-    "lastname": "Last Name",
+    "name": "First name",
+    "lastname": "Last name",
     "email": "Email",
     "phone": "Phone",
     "password": "Password",
@@ -53,10 +71,15 @@
   "RegisterSuccess": {
     "title": "Congratulations!",
     "descriptcion": "Your account has been created successfully.",
-    "descriptcion2": "You can now log in and start using our services.",
+    "descriptcion2": "Now you can log in and start using our services.",
     "titleButtom": "Go to Login"
   },
   "Google": {
     "login": "Sign in with Google"
+  },
+  "Notfound": {
+    "title": "Page Not Found",
+    "descriptcion": "Oops! The page you are looking for does not exist or has been moved.",
+    "descriptcion2": "Please check the URL or return to the homepage."
   }
 }

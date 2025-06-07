@@ -3,6 +3,8 @@
 import {
   googleLogin,
   login,
+  recoverCode,
+  recoverPassword,
   register,
   registerCode,
 } from "@/services/AuthServices";
@@ -23,6 +25,17 @@ interface RegisterCode {
   locale: string;
 }
 
+interface RecoverCode {
+  email: string;
+  locale: string;
+}
+
+interface RecoverPassword {
+  email: string;
+  newPassword: string;
+  code: string;
+}
+
 interface Register {
   name: string;
   lastname: string;
@@ -30,11 +43,18 @@ interface Register {
   phone: string;
   password: string;
   code: string;
+  locale: string;
 }
 
 interface AuthContextType {
   user: string | null;
   login: ({ email, password }: Login) => Promise<boolean>;
+  recoverCode: ({ email }: RecoverCode) => Promise<void>;
+  recoverPassword: ({
+    email,
+    newPassword,
+    code,
+  }: RecoverPassword) => Promise<void>;
   googleLogin: ({ token }: GoogleLogin) => Promise<void>;
   registerCode: ({ email }: RegisterCode) => Promise<void>;
   register: ({
@@ -72,10 +92,36 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const handleRecoverCode = async ({
+    email,
+    locale,
+  }: RecoverCode): Promise<void> => {
+    try {
+      await recoverCode({ email, locale });
+      localStorage.setItem("email", email);
+      router.push("/login/recover/code");
+    } catch (error) {
+      localStorage.removeItem("email");
+      console.log(error);
+    }
+  };
+
+  const handleRecoverPassword = async ({
+    email,
+    newPassword,
+    code,
+  }: RecoverPassword): Promise<void> => {
+    try {
+      await recoverPassword({ email, newPassword, code });
+      router.push("/login/recover/success");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleGoogleLogin = async ({ token }: GoogleLogin): Promise<void> => {
     try {
       await googleLogin({ token });
-      setUser("User Authenticated");
     } catch (error) {
       console.log(error);
     }
@@ -84,8 +130,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const handleRegisterCode = async ({ email, locale }: RegisterCode) => {
     try {
       await registerCode({ email, locale });
+      localStorage.setItem("email", email);
       router.push("/register/code");
     } catch (error) {
+      localStorage.removeItem("email");
       console.log(error);
     }
   };
@@ -97,6 +145,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     phone,
     password,
     code,
+    locale,
   }: Register) => {
     try {
       await register({
@@ -106,7 +155,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         phone,
         password,
         code,
+        locale,
       });
+      router.push("/register/success");
     } catch (error) {
       console.log(error);
     }
@@ -117,6 +168,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       value={{
         user,
         login: handleLogin,
+        recoverCode: handleRecoverCode,
+        recoverPassword: handleRecoverPassword,
         googleLogin: handleGoogleLogin,
         registerCode: handleRegisterCode,
         register: handleRegister,

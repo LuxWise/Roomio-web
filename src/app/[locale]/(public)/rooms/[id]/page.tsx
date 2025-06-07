@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useHotel from "@/hooks/useHotel";
 import useTheme from "@/hooks/useTheme";
 import LayoutHome from "@/layout/Home/layoutHome";
@@ -18,16 +18,13 @@ import {
 const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
   const { room, roomMedia, getRoomById, getRoomMediaById } = useHotel();
-  const [loading, setLoading] = useState(false);
   const isLight = useTheme(state => state.theme);
 
   useEffect(() => {
     const fetchRooms = async () => {
       if (!id) return;
-      setLoading(true);
       await getRoomById(id);
       await getRoomMediaById(id);
-      setLoading(false);
     };
     fetchRooms();
   }, [id]);

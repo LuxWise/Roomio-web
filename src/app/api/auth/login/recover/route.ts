@@ -3,47 +3,24 @@ import { AxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Payload {
-  name: string;
-  lastname: string;
   email: string;
-  phone: string;
-  password: string;
-  code: string;
   locale: string;
 }
 
 export async function POST(req: NextRequest) {
   try {
     const data: Payload = await req.json();
-
-    if (
-      !data.name ||
-      !data.lastname ||
-      !data.email ||
-      !data.phone ||
-      !data.password ||
-      !data.code ||
-      !data.locale
-    ) {
-      return NextResponse.json(
-        { error: "Los datos no están completos" },
-        { status: 400 }
-      );
-    }
-
-    await api.post("/api/auth/register", {
-      name: data.name,
-      lastname: data.lastname,
+    await api.post("/api/auth/recover/password", {
       email: data.email,
-      phone: data.phone,
-      password: data.password,
-      roleId: 1,
-      code: data.code,
       locale: data.locale,
     });
 
+    if (!data.email || !data.locale) {
+      throw new Error("Missing data");
+    }
+
     return NextResponse.json(
-      { status: "success", message: "register success" },
+      { status: "success", message: "send code success" },
       { status: 200 }
     );
   } catch (e) {

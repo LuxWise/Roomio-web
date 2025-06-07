@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import BoxButton from "../atoms/BoxButton";
 import { ArrowRightToLine, MapIcon } from "lucide-react";
@@ -8,15 +9,23 @@ import { useRouter } from "next/navigation";
 import { DateValue } from "@react-types/calendar";
 import { useTranslations } from "next-intl";
 import Autocomplete from "../atoms/Autocomplete";
-
+import useMediaQuery from "@/hooks/useMediaQuery";
 interface SelectOption {
   title: string;
   text: string;
   action?: () => void;
 }
 
-const SearchBar = () => {
-  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
+interface SearchBarProps {
+  onSearch: (data: {
+    destination: string;
+    startDate: Date | null;
+    endDate: Date | null;
+  }) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [destination, setDestination] = useState("");
@@ -28,10 +37,7 @@ const SearchBar = () => {
   const [selectedRange, setSelectedRange] = useState<{
     start: DateValue | null;
     end: DateValue | null;
-  }>({
-    start: null,
-    end: null,
-  });
+  }>({ start: null, end: null });
 
   const destinations = [
     "Bogotá",
@@ -40,21 +46,16 @@ const SearchBar = () => {
     "Cartagena",
     "Barranquilla",
   ];
-
   const isLight = useTheme(state => state.theme);
+  const isMd = useMediaQuery("(min-width: 768px)");
 
-  const hangleMap = () => {
-    router.push("/map");
-  };
+  const hangleMap = () => router.push("/map");
 
   const handleRangeChange = (range: {
     start: DateValue | null;
     end: DateValue | null;
   }) => {
-    setSelectedRange({
-      start: range.start,
-      end: range.end,
-    });
+    setSelectedRange({ start: range.start, end: range.end });
   };
 
   const handleDestinationSelect = (value: string) => {
@@ -128,9 +129,17 @@ const SearchBar = () => {
   }, [calendarOpen, autocompleteOpen]);
 
   return (
-    <div className="flex gap-x-6 relative">
+    <div className="flex flex-col md:flex-row gap-4 md:gap-x-6 relative w-full items-center">
       <div
-        className={`grid grid-cols-3 grid-rows-1 gap-4 px-8 py-1 justify-center items-center min-w-2xl rounded-full ${bgTheme} ${shadowTheme}`}
+        className={`
+          grid grid-cols-1 md:grid-cols-3 grid-rows-3 md:grid-rows-1 gap-2 md:gap-4
+          px-4 md:px-8 py-2 md:py-1
+          justify-center items-center
+          min-w-80 md:min-w-2xl
+          rounded-2xl md:rounded-full
+          ${bgTheme} ${shadowTheme}
+          transition-all
+        `}
       >
         {selectOptions.map((option, idx) => (
           <CardSelect
@@ -144,7 +153,8 @@ const SearchBar = () => {
           />
         ))}
       </div>
-      <div className="flex gap-x-3 items-center">
+
+      <div className="flex gap-2 md:gap-x-3 items-center mt-2 md:mt-0">
         <BoxButton
           icon={MapIcon}
           bgColor={isLight ? "white" : "blue"}
@@ -156,12 +166,27 @@ const SearchBar = () => {
           icon={ArrowRightToLine}
           bgColor={isLight ? "blue" : "white"}
           color={isLight ? "white" : "black"}
+          onClick={() =>
+            onSearch({
+              destination,
+              startDate: selectedRange.start
+                ? selectedRange.start.toDate("America/Bogota")
+                : null,
+              endDate: selectedRange.end
+                ? selectedRange.end.toDate("America/Bogota")
+                : null,
+            })
+          }
         />
       </div>
+
       {calendarOpen && (
-        <div ref={calendarRef} className="absolute top-17 z-20">
+        <div
+          ref={calendarRef}
+          className="absolute left-0 top-24 md:top-17 z-20 w-full md:w-auto"
+        >
           <RangeCalendar
-            visibleMonths={2}
+            visibleMonths={isMd ? 2 : 1}
             className="shadow-lg shadow-sky-500"
             calendarWidth={335}
             color="primary"
@@ -173,12 +198,16 @@ const SearchBar = () => {
               cellButton: !isLight && " text-white ",
               gridHeaderCell: isLight ? "text-[#181c25]" : "text-black",
             }}
-            onChange={date => handleRangeChange(date)}
+            onChange={handleRangeChange}
           />
         </div>
       )}
+
       {autocompleteOpen && (
-        <div ref={autocompleteRef}>
+        <div
+          ref={autocompleteRef}
+          className="absolute left-0 top-40 md:top-0 z-20 w-full md:w-auto"
+        >
           <Autocomplete
             value={destination}
             options={destinations}
