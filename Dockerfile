@@ -5,6 +5,8 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
 
+ENV NEXT_PUBLIC_MAPBOX=pk.eyJ1IjoibHV4d2lzZSIsImEiOiJjbTRoYXZzNXIwNHk2MmtvZ3IxeGduOHpxIn0.-C8Am0AAaFfr7okj8pCKag
+
 COPY . .  
 RUN npm run build  
 
