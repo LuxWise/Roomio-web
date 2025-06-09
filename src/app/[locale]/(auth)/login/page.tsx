@@ -40,7 +40,7 @@ const LoginPage = () => {
 
   const bgMain = isLight
     ? " bg-gradient-to-r from-sky-100 via-sky-100 to-sky-600"
-    : "bg-[#181c25]";
+    : " bg-gradient-to-r from-[#181c25] to-sky-800";
 
   return (
     <div
