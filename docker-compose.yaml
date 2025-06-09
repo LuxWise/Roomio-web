@@ -1,6 +1,6 @@
 services:
-  roomio_web_arq:
-    image: luxwise/roomio_web_arq:latest
+  roomio_web:
+    build: .
     ports:
       - "3000:3000"
     environment:
@@ -9,16 +9,3 @@ services:
       - CONNECTION_URL_PRODUCTION=http://20.206.250.161:8080
       - GOOGLE_CLIENT_ID=32308490398352oosp7tttrhdijj1inporb1fupv83h.apps.googleusercontent.com
       - NEXT_PUBLIC_MAPBOX=pk.eyJ1IjoibHV4d2lzZSIsImEiOiJjbTRoYXZzNXIwNHk2MmtvZ3IxeGduOHpxIn0.-C8Am0AAaFfr7okj8pCKag
-
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/selfsigned.crt:/etc/ssl/certs/selfsigned.crt
-      - ./nginx/selfsigned.key:/etc/ssl/private/selfsigned.key
-    depends_on:
-      - roomio_web
