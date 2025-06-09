@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { HotelProvider } from "@/context/HotelContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ReservationProvider } from "@/context/ReservationContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,11 +46,13 @@ export default async function LocaleLayout({
       >
         <AuthProvider>
           <HotelProvider>
-            <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID!}>
-              <NextIntlClientProvider locale={locale} messages={messages}>
-                {children}
-              </NextIntlClientProvider>
-            </GoogleOAuthProvider>
+            <ReservationProvider>
+              <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID!}>
+                <NextIntlClientProvider locale={locale} messages={messages}>
+                  {children}
+                </NextIntlClientProvider>
+              </GoogleOAuthProvider>
+            </ReservationProvider>
           </HotelProvider>
         </AuthProvider>
       </body>
