@@ -4,23 +4,6 @@ import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
-// Lista de rutas válidas
-const validRoutes = [
-  "", // equivale a /[locale]
-  "contact",
-  "login",
-  "login/recover",
-  "login/recover/code",
-  "login/recover/success",
-  "map",
-  "notFound",
-  "register",
-  "register/code",
-  "register/success",
-  "rooms",
-];
-
-// Middleware principal
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -28,6 +11,22 @@ export default function middleware(request: NextRequest) {
   if (match) {
     const [, locale, rest] = match;
     const cleanPath = rest?.replace(/^\/|\/$/g, "") ?? "";
+
+    const validRoutes = [
+      "",
+      "contact",
+      "login",
+      "login/recover",
+      "login/recover/code",
+      "login/recover/success",
+      "map",
+      "notFound",
+      "register",
+      "register/code",
+      "register/success",
+      "rooms",
+      "reservation/success",
+    ];
 
     const isValid = validRoutes.some(
       route => cleanPath === route || cleanPath.startsWith(`${route}/`)
@@ -40,8 +39,21 @@ export default function middleware(request: NextRequest) {
     }
   }
 
-  // Si todo es válido, sigue con el middleware original de next-intl
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+
+  // ✅ Si existe auth_token, marca una cookie auxiliar
+  const authToken = request.cookies.get("auth_token");
+  if (authToken) {
+    response.cookies.set("isLogged", "true", {
+      path: "/",
+    });
+  } else {
+    response.cookies.set("isLogged", "false", {
+      path: "/",
+    });
+  }
+
+  return response;
 }
 
 export const config = {

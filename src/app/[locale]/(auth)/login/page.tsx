@@ -4,7 +4,6 @@ import Typography from "@/components/atoms/Typography";
 import useTheme from "@/hooks/useTheme";
 import LayoutLogin from "@/layout/Login/layoutLogin";
 import useAuth from "@/hooks/useAuth";
-import GoogleLoginButton from "@/components/atoms/GoogleLoginButton";
 import { useTranslations } from "next-intl";
 import { InputForm } from "@/components/molecules/InputForm";
 import { useRouter } from "next/navigation";
@@ -68,7 +67,6 @@ const LoginPage = () => {
             onSubmit={handleLogin}
             className="flex flex-col justify-center items-center"
           />
-          <GoogleLoginButton />
           <div className="flex gap-2">
             <Typography variant="span">{t("forget")}</Typography>
             <div onClick={handleRecover}>

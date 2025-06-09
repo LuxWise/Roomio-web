@@ -81,5 +81,12 @@
     "title": "Página no encontrada",
     "descriptcion": "¡Ups! La página que buscas no existe o ha sido movida.",
     "descriptcion2": "Por favor, revisa la URL o regresa a la página principal."
+  },
+  "ReservationSuccess": {
+    "title": "¡Reserva confirmada!",
+    "description": "Tu reserva ha sido registrada exitosamente.",
+    "description2": "Te hemos enviado un correo con los detalles.",
+    "description3": "¡Gracias por confiar en nosotros!",
+    "button": "Volver al inicio"
   }
 }

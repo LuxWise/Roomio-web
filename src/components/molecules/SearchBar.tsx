@@ -6,7 +6,7 @@ import useTheme from "@/hooks/useTheme";
 import { RangeCalendar } from "@heroui/calendar";
 import CardSelect from "../atoms/CardSelect";
 import { useRouter } from "next/navigation";
-import { DateValue } from "@react-types/calendar";
+import { DateValue, RangeValue } from "@heroui/calendar";
 import { useTranslations } from "next-intl";
 import Autocomplete from "../atoms/Autocomplete";
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -40,21 +40,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   }>({ start: null, end: null });
 
   const destinations = [
-    "Bogotá",
-    "Medellín",
-    "Cali",
-    "Cartagena",
-    "Barranquilla",
+    "Colombia",
+    "Ecuador",
+    "Peru",
+    "Venezuela",
+    "Brasil",
+    "Costa Rica",
   ];
   const isLight = useTheme(state => state.theme);
   const isMd = useMediaQuery("(min-width: 768px)");
 
   const hangleMap = () => router.push("/map");
 
-  const handleRangeChange = (range: {
-    start: DateValue | null;
-    end: DateValue | null;
-  }) => {
+  const handleRangeChange = (range: RangeValue<DateValue>) => {
     setSelectedRange({ start: range.start, end: range.end });
   };
 
@@ -206,7 +204,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       {autocompleteOpen && (
         <div
           ref={autocompleteRef}
-          className="absolute left-0 top-40 md:top-0 z-20 w-full md:w-auto"
+          className="absolute left-0 top-0 md:top z-20 w-full md:w-auto"
         >
           <Autocomplete
             value={destination}

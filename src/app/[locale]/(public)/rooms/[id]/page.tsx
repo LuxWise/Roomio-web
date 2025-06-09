@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useHotel from "@/hooks/useHotel";
 import useTheme from "@/hooks/useTheme";
 import LayoutHome from "@/layout/Home/layoutHome";
@@ -14,11 +14,22 @@ import {
   PersonStanding,
   UsersRound,
 } from "lucide-react";
+import useAuth from "@/hooks/useAuth";
+import Button from "@/components/atoms/Button";
+import ReservationSection from "@/components/molecules/ReservationSection";
+import useReservation from "@/hooks/useReservation";
 
 const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
+  const { user } = useAuth();
+  const { postReservation } = useReservation();
   const { room, roomMedia, getRoomById, getRoomMediaById } = useHotel();
   const isLight = useTheme(state => state.theme);
+  const [reservationData, setReservationData] = useState<{
+    startDate: string;
+    endDate: string;
+    nights: number;
+  } | null>(null);
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -29,7 +40,7 @@ const RoomPage = () => {
     fetchRooms();
   }, [id]);
 
-  const bgMain = isLight ? "bg-white" : "bg-[#181c25]";
+  const bgMain = isLight ? "bg-[#123fff]" : "bg-[#181c25]";
   const containerClass = `flex flex-col items-center h-screen ${bgMain} transition-colors duration-500`;
 
   return (
@@ -39,8 +50,55 @@ const RoomPage = () => {
           <div></div>
         ) : (
           <section className="flex flex-col md:flex-row h-full px-2 md:px-10 py-28 md:py-20 bg-white gap-6 md:gap-8">
-            <div className="w-full md:w-1/2 flex items-center justify-center mb-6 md:mb-0">
-              <ImageGallerySelector images={roomMedia!} />
+            <div className="flex flex-col w-full md:w-1/2 mb-6 md:mb-0">
+              <div className="flex w-full justify-center">
+                <ImageGallerySelector images={roomMedia!} />
+              </div>
+              <div
+                className={`w-2/6 p-5 mt-4 flex flex-col items-center rounded-2xl ${
+                  user && "bg-sky-200"
+                }`}
+              >
+                {user ? (
+                  <div className="flex flex-col items-center gap-5">
+                    <div className=" flex gap-5 justify-center items-center">
+                      <ReservationSection
+                        onReservationChange={setReservationData}
+                      />
+                      <Typography variant="h6">Realizar reserva</Typography>
+                    </div>
+                    <Button
+                      text="Reservar habitación"
+                      bgColor="blue"
+                      color="white"
+                      rounded="xl"
+                      className="px-8 py-3 text-lg font-semibold shadow-lg hover:bg-blue-700 transition"
+                      onClick={() => {
+                        if (!reservationData) {
+                          alert("Selecciona un rango de fechas primero.");
+                          return;
+                        }
+                        postReservation({
+                          start: reservationData.startDate,
+                          end: reservationData.endDate,
+                          id: id,
+                        });
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <Button
+                    text="Inicia sesión para reservar"
+                    bgColor="green"
+                    color="white"
+                    rounded="xl"
+                    className="px-8 py-3 text-lg font-semibold shadow-lg hover:bg-gray-700 transition"
+                    onClick={() => {
+                      window.location.href = "/login";
+                    }}
+                  />
+                )}
+              </div>
             </div>
             <div className="w-full md:w-1/2 flex flex-col gap-6 pb-18 md:pb-0">
               <div>

@@ -113,7 +113,7 @@ export default function Home() {
                   <Card
                     key={room.id}
                     name={room.hotelId.name}
-                    img="https://roomio.blob.core.windows.net/roomio-hotels/57d01297-ec68-4f71-b042-d883a6b4f734-hotel fontana (3).jpg"
+                    img={room.hotelId.frontImage}
                     ubication={`${room.hotelId.city}, ${room.hotelId.country}`}
                     price={`$ ${room.price} ${t("price")}`}
                     textColor={textColor}

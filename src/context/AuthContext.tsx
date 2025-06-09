@@ -9,7 +9,7 @@ import {
   registerCode,
 } from "@/services/AuthServices";
 import { useRouter } from "next/navigation";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface Login {
   email: string;
@@ -80,6 +80,25 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<string | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const getIsLogged = () => {
+      if (typeof document !== "undefined") {
+        const cookies = document.cookie.split("; ");
+        const isLoggedCookie = cookies.find(c => c.startsWith("isLogged="));
+        if (isLoggedCookie) {
+          const value = isLoggedCookie.split("=")[1];
+          if (value === "true") {
+            setUser("User Authenticated");
+          } else {
+            setUser(null);
+          }
+        }
+      }
+    };
+
+    getIsLogged();
+  }, []);
 
   const handleLogin = async ({ email, password }: Login): Promise<boolean> => {
     try {
