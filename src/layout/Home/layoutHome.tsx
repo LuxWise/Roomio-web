@@ -13,6 +13,7 @@ import SelectList from "@/components/atoms/SelectList";
 import Button from "@/components/atoms/Button";
 import useAuth from "@/hooks/useAuth";
 import { User } from "lucide-react";
+import Breadcrumb from "@/components/atoms/breadcrumb";
 
 interface LayoutHomeProps {
   children: ReactNode;
@@ -83,6 +84,8 @@ function LayoutHome({ children }: LayoutHomeProps) {
           scroll ? "bg-white" : bgHeader
         }`}
       >
+        <Breadcrumb />
+
         <section className="flex gap-4 justify-center items-center">
           <Image
             src={Logo}

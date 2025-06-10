@@ -8,6 +8,7 @@ import useTheme from "@/hooks/useTheme";
 import LayoutLogin from "@/layout/Login/layoutLogin";
 import { InputForm } from "@/components/molecules/InputForm";
 import { SyncLoader } from "react-spinners";
+import Breadcrumb from "@/components/atoms/breadcrumb";
 
 interface Register {
   email: string;
@@ -50,8 +51,8 @@ const RegisterPage = () => {
   ];
 
   const bgMain = isLight
-    ? "bg-conic-180 from-sky-300 via-sky-50 to-sky-300"
-    : "bg-[#181c25]";
+    ? " bg-gradient-to-r from-sky-100 via-sky-100 to-sky-600"
+    : " bg-gradient-to-r from-[#181c25] to-sky-800";
   const loaderColor = isLight ? "#1d63ed" : "#181c25";
 
   return (

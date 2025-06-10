@@ -51,7 +51,7 @@ const RoomPage = () => {
         ) : (
           <section className="flex flex-col md:flex-row h-full px-2 md:px-10 py-28 md:py-20 bg-white gap-6 md:gap-8">
             <div className="flex flex-col w-full md:w-1/2 mb-6 md:mb-0">
-              <div className="flex w-full justify-center">
+              <div className="flex w-full justify-center pt-10">
                 <ImageGallerySelector images={roomMedia!} />
               </div>
               <div
