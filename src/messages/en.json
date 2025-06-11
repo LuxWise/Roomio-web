@@ -2,11 +2,11 @@
   "HomeLayout": {
     "phrase1": "A destination for everyone",
     "phrase2": "A new adventure",
-    "phrase3": "Travel, discover and enjoy",
+    "phrase3": "Travel, discover, and enjoy",
     "firstLink": "Where are we going?",
     "secondLink": "Roomio",
     "register": "Register",
-    "login": "Login"
+    "login": "Log in"
   },
   "SearchBar": {
     "destiny": "Destination",
@@ -22,8 +22,8 @@
   "Login": {
     "title": "Welcome!",
     "descriptcion": "Log in to access your account and enjoy all our services. Please enter your details in the form.",
-    "titleForm": "Login",
-    "titleButtom": "Login to Roomio",
+    "titleForm": "Log in",
+    "titleButtom": "Enter Roomio",
     "email": "Email",
     "password": "Password",
     "forget": "Forgot your password?",
@@ -43,9 +43,9 @@
   },
   "RecoverSuccess": {
     "title": "Congratulations!",
-    "descriptcion": "Your account has been created successfully.",
+    "descriptcion": "Your account has been successfully created.",
     "descriptcion2": "Now you can log in and start using our services.",
-    "titleButtom": "Go to Login"
+    "titleButtom": "Go to Log In"
   },
   "Register": {
     "titleForm": "User Registration",
@@ -60,26 +60,33 @@
     "passwordsNoMatch": "Passwords do not match"
   },
   "RegisterCode": {
-    "descriptcion": "Register to access all our services. Please complete the following form with your information.",
+    "descriptcion": "Register to access all our services. Please complete the following form with your details.",
     "title": "Create your account!",
     "titleForm": "User Registration",
     "titleButtom": "Proceed with registration",
     "email": "Email",
     "question": "Already have an account?",
-    "answer": "Login"
+    "answer": "Log in"
   },
   "RegisterSuccess": {
     "title": "Congratulations!",
-    "descriptcion": "Your account has been created successfully.",
+    "descriptcion": "Your account has been successfully created.",
     "descriptcion2": "Now you can log in and start using our services.",
-    "titleButtom": "Go to Login"
+    "titleButtom": "Go to Log In"
   },
   "Google": {
     "login": "Sign in with Google"
   },
   "Notfound": {
-    "title": "Page Not Found",
+    "title": "Page not found",
     "descriptcion": "Oops! The page you are looking for does not exist or has been moved.",
-    "descriptcion2": "Please check the URL or return to the homepage."
+    "descriptcion2": "Please check the URL or return to the main page."
+  },
+  "ReservationSuccess": {
+    "title": "Reservation confirmed!",
+    "description": "Your reservation has been successfully registered.",
+    "description2": "We have sent you an email with the details.",
+    "description3": "Thank you for trusting us!",
+    "button": "Return to home"
   }
 }

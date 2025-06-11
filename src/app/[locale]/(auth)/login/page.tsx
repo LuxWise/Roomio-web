@@ -7,6 +7,7 @@ import useAuth from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
 import { InputForm } from "@/components/molecules/InputForm";
 import { useRouter } from "next/navigation";
+import GoogleLoginButton from "@/components/atoms/GoogleLoginButton";
 
 interface Login {
   email: string;
@@ -67,6 +68,7 @@ const LoginPage = () => {
             onSubmit={handleLogin}
             className="flex flex-col justify-center items-center"
           />
+          <GoogleLoginButton />
           <div className="flex gap-2">
             <Typography variant="span">{t("forget")}</Typography>
             <div onClick={handleRecover}>
