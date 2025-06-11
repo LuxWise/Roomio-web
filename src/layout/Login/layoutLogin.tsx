@@ -9,6 +9,7 @@ import { Sun, Moon } from "lucide-react";
 import { IoEarth } from "react-icons/io5";
 import { useTranslations } from "next-intl";
 import SelectList from "@/components/atoms/SelectList";
+import Breadcrumb from "@/components/atoms/breadcrumb";
 
 interface LayoutLoginProps {
   children: ReactNode;
@@ -63,6 +64,7 @@ function LayoutLogin({ children }: LayoutLoginProps) {
       <header
         className={`fixed top-0 z-30 flex flex-row justify-between items-center pl-10 pr-16 py-3 w-full transition-colors duration-500 ${bgHeader}`}
       >
+        <Breadcrumb />
         <section className="flex gap-4 justify-center items-center">
           <Image
             src={Logo}
