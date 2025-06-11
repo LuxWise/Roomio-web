@@ -123,19 +123,17 @@ function LayoutHome({ children }: LayoutHomeProps) {
           </div>
 
           {isLight ? (
-            <div id="sun">
+            <div id="sun" onClick={toggleTheme}>
               <Sun
                 color={scroll ? "#000" : "#FFF"}
-                onClick={toggleTheme}
                 width={20}
                 className="cursor-pointer"
               />
             </div>
           ) : (
-            <div id="moon">
+            <div id="moon" onClick={toggleTheme}>
               <Moon
                 color={scroll ? "#000" : "#FFF"}
-                onClick={toggleTheme}
                 width={20}
                 className="cursor-pointer"
               />
