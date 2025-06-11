@@ -123,19 +123,23 @@ function LayoutHome({ children }: LayoutHomeProps) {
           </div>
 
           {isLight ? (
-            <Sun
-              color={scroll ? "#000" : "#FFF"}
-              onClick={toggleTheme}
-              width={20}
-              className="cursor-pointer"
-            />
+            <div id="sun">
+              <Sun
+                color={scroll ? "#000" : "#FFF"}
+                onClick={toggleTheme}
+                width={20}
+                className="cursor-pointer"
+              />
+            </div>
           ) : (
-            <Moon
-              color={scroll ? "#000" : "#FFF"}
-              onClick={toggleTheme}
-              width={20}
-              className="cursor-pointer"
-            />
+            <div id="moon">
+              <Moon
+                color={scroll ? "#000" : "#FFF"}
+                onClick={toggleTheme}
+                width={20}
+                className="cursor-pointer"
+              />
+            </div>
           )}
           <div className="flex gap-3">
             {!user ? (
