@@ -8,7 +8,6 @@ import useTheme from "@/hooks/useTheme";
 import LayoutLogin from "@/layout/Login/layoutLogin";
 import { InputForm } from "@/components/molecules/InputForm";
 import { SyncLoader } from "react-spinners";
-import Breadcrumb from "@/components/atoms/breadcrumb";
 
 interface Register {
   email: string;
